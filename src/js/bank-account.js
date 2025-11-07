@@ -3,15 +3,17 @@
 const account = {
   accountName: "Lo", // name of the account holder
   balance: 0, // total amount of the account
-  getBalance() {}, // display the total amount of the account to the user
+  getBalance() {
+
+  }, // display the total amount of the account to the user
   deposit(amount) {
     let amount = parseFloat(
       prompt(`Please enter the amount you would like to deposit`)
     );
-
-    let check = alert(`You would like to deposit $${amount}?`);
+    alert(`Confirm the amount $${amount}`);
+    let newBalance = account.balance + amount;
     confirm(
-      `Your deposit was successfull! Your balance is now ${account.balance}`
+      `Your deposit was successfully added to your bank account! Your balance is now ${newBalance}`
     );
   }, // deposit money onto the balance of the account
   withdrawal(amount) {}, // withdraw money from the balance of the account
