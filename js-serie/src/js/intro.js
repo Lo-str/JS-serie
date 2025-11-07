@@ -6,7 +6,9 @@ let myName = "Lo";
 let age = 24;
 let favColor = "Forest Green";
 
-console.log(`Sup Michelle! This is ${myName}, today I'll be ${age} and one of my favorite color is ${favColor}. Cheers =)`);
+console.log(
+  `Sup Michelle! This is ${myName}, today I'll be ${age} and one of my favorite color is ${favColor}. Cheers =)`
+);
 
 // Exercise 3
 let num1 = 3;
@@ -21,4 +23,6 @@ console.log(day);
 console.log(num3);
 console.log(year);
 
-console.log(`My first dog's given name was ${fullName}. She was born on the ${day}st ${month} of the year ${year}. She was such a distinguished gentledog!`);
+console.log(
+  `My first dog's given name was ${fullName}. She was born on the ${day}st ${month} of the year ${year}. She was such a distinguished gentledog!`
+);
