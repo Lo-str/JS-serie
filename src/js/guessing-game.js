@@ -28,6 +28,7 @@ function guessNumberGame() {
           guess = parseFloat(guess);
         };
       }
+      
       else if (Math.abs(rando - guess) > 2 && guess <= 10 && guess >= 1) {
         guess = prompt("Freeezing 🥶, try again! ");
         if (guess === null) {
