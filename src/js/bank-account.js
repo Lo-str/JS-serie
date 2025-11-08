@@ -1,110 +1,140 @@
 //========== Bank Account ==========\\
 
+let usersName = prompt(`Please enter your name.`);
+let welcome = confirm(`Welcome to your bank ${usersName}!`);
+
+// Main Menu
+function atm() {
+  let menu = true;
+  while (menu) {
+    alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
+    let options = prompt(`Please choose an option:`);
+    switch (options) {
+      case "1":
+        account.deposit();
+        alert("Your deposit was successfully added to your bank account! ")
+        again("Would you like to do another deposit?");
+        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
+        options = prompt(`Please choose an option:`);
+        break;
+
+      case "2":
+        account.withdrawal();
+        alert(`With great power comes great responsibilities Padawan! Trade carefully 💸\nYour balance is now ${this.balance}`)
+        again("Would you like to do another withdrawal?");
+        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
+        options = prompt(`Please choose an option:`);
+        break;
+
+      case "3":
+        account.getAccountName();
+        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
+        options = prompt(`Please choose an option:`);
+        break;
+
+      case "4":
+        account.getBalance();
+        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
+        options = prompt(`Please choose an option:`);
+        break;
+
+      case "5":
+        account.exitAccount();
+        menu = false;
+        break;
+
+      default:
+        alert(account.accountError("choose a valid option "));
+        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
+        options = prompt(`Please choose an option:`);
+    }
+  }
+}
+
+function again(input, message) {
+  let input = confirm(message);
+  if (input === false) {
+    return;
+  } else {
+    return true;
+  }
+}  
+
+function isValidNumber(input) {
+  converted = Number(input);
+  if (Number.isNaN(converted) || converted === null || converted.trim() === "") {
+    return false;
+  } else {
+    return true;
+  };
+}
+
 const account = {
-  accountName: "Lo", // name of the account holder
-  balance: 0, // total amount of the account
+
+  accountName: usersName, // name of the account holder
+  balance: 100000, // Total amount on the bank account
 
   // display the total amount of the account to the user
   getBalance() {
-    confirm(`Your balance is $${this.balance}`);
-    return atm();
+    alert(`Your balance is $${this.balance}`);
   },
 
   // deposit money onto the balance of the account
   deposit(amount) {
-    amount = parseFloat(prompt(`Please enter the amount`));
-    alert(`Confirm the amount $${amount}`);
-
-    if (typeof amount === isNaN(amount) && !Math.abs(amount)) {
-      return this.accountError;
-    } else {
-      let newBalance = this.balance + amount;
-      console.log(`Your deposit was successfully added to your bank account! Your balance is now ${newBalance}`)
-      again("Would you like to do another deposit?")
+    amount = prompt(`Please enter the amount`);
+    num = Number(amount);   
+    if (!isValidNumber(num)){
+      account.accountError("enter a valid number");
+      return;
+    }
+    else if (num < 1) {
+      this.accountError("Looks like something went wrong!")
+      return;
+    }
+    else {
+      this.balance += num;
     }
   },
 
   // withdraw money from the balance of the account
   withdrawal(amount) {
-    let amount = parseFloat(prompt(`Please enter the amount you would like to withdraw`));
-    alert(`Confirm the amount $${amount}`);
-
-    if (typeof amount === isNaN(amount) && !Math.abs(amount) || amount > this.balance) {
-      return this.accountError("enter a ");
-    } else {
-      let newBalance = this.balance + amount;
-      console.log(`Your deposit was successfully added to your bank account! Your balance is now ${newBalance}`)
-      again("Would you like to do another deposit?")
+    amount = prompt(`Please enter the amount`);  
+    num = Number(amount);
+    if (!isValidNumber(num)){
+      account.accountError("enter a valid number");
+      return;
+    }
+    else if (num > this.balance) {
+      this.accountError("but don't worry, all you need is code!")
+      return;
+    }
+    else if (num < 1) {
+      this.accountError("Looks like something went wrong!")
+      return;
+    }
+    else {
+      this.balance -= num;
     }
   },
 
   // display the account holders name to the user
-  getAccountName() {},
+  getAccountName() {
+    alert(`${this.accountName}`)
+  },
 
   // display an error message to the user
   accountError(message) {
-    console.log("Oh nooo! Looks like something went wrong!");
-    console.log(`I need you to ${message} to pursue, try again!`)
+    alert("Oh nooo! ☠️");
+    alert(`${message}, try again!`)
     return;
   },
 
   // exit the account
-  exitAccount() {},
+  exitAccount() {
+    alert("Have a lovely day! Goodbye!")
+    return;
+  },
 };
-account.getBalance();
 
-function atm() {
-  let menu = true;
-  console.log("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account name\n4. Exit")
-  let options = prompt(`Please choose an option:`);
-  while (menu) {
-    switch (options) {
-      case 1:
-        console.log(account.getAccountName());
-        break;
-
-      case 2:
-        console.log(account.getBalance());
-        break;
-
-      case 3:
-        console.log(account.deposit());
-        break;
-
-      case 4:
-        console.log(account.withdrawal());
-        break;
-
-      case 5:
-        console.log(account.exitAccount());
-        break;
-
-      default:
-        console.log(account.accountError("choose a valid otpion "));
-    }
-  }
-}
-
-function again(message) {
-  let choice = confirm(message);
-  if (choice === false) {
-    return atm();
-  } else {
-    return account.deposit();
-  }
-}
-
-function isNumber(input) {
-  if (Number.isNaN(input)) {
-    return account.accountError("enter a valid number")
-  } else {};
-}
-
+welcome();
 atm();
-
-// function welcome(firstName, lastName) {
-//   let fullName = firstName + lastName;
-//   confirm(`Welcome to your bank webplatform ${fullName}!`)
-//   return fullName;
-// }
-// let fullName = prompt(`Hi! Please enter your ${firstName} and ${lastName}.`);
