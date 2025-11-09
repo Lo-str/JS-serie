@@ -12,30 +12,18 @@ function atm() {
     switch (options) {
       case "1":
         account.deposit();
-        alert("Your deposit was successfully added to your bank account! ")
-        again("Would you like to do another deposit?");
-        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
-        options = prompt(`Please choose an option:`);
         break;
 
       case "2":
         account.withdrawal();
-        alert(`With great power comes great responsibilities Padawan! Trade carefully 💸\nYour balance is now ${this.balance}`)
-        again("Would you like to do another withdrawal?");
-        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
-        options = prompt(`Please choose an option:`);
         break;
 
       case "3":
         account.getAccountName();
-        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
-        options = prompt(`Please choose an option:`);
         break;
 
       case "4":
         account.getBalance();
-        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
-        options = prompt(`Please choose an option:`);
         break;
 
       case "5":
@@ -44,16 +32,15 @@ function atm() {
         break;
 
       default:
-        alert(account.accountError("choose a valid option "));
-        alert("Menu\n\n1. Deposit\n2. Withdrawal\n3. Account Name\n4. Balance\n5. Exit")
-        options = prompt(`Please choose an option:`);
+        account.accountError("choose a valid option ");
+        break;
     }
   }
 }
 
-function again(input, message) {
-  let input = confirm(message);
-  if (input === false) {
+function again(message) {
+  let result = confirm(message);
+  if (result === false) {
     return;
   } else {
     return true;
@@ -61,12 +48,20 @@ function again(input, message) {
 }  
 
 function isValidNumber(input) {
-  converted = Number(input);
-  if (Number.isNaN(converted) || converted === null || converted.trim() === "") {
+  let converted = Number(input);
+  if (Number.isNaN(converted)) {
     return false;
   } else {
     return true;
   };
+}
+
+function isValidInput(input) {
+  if (input === null || input.trim() === "") {
+    return false;
+  } else {
+    return true;
+  }
 }
 
 const account = {
@@ -82,7 +77,13 @@ const account = {
   // deposit money onto the balance of the account
   deposit(amount) {
     amount = prompt(`Please enter the amount`);
-    num = Number(amount);   
+    if(!isValidInput(amount)) {
+      account.accountError("enter a valid input");
+      return;
+    } else {
+      let num = Number(amount);
+    }
+    
     if (!isValidNumber(num)){
       account.accountError("enter a valid number");
       return;
@@ -93,18 +94,22 @@ const account = {
     }
     else {
       this.balance += num;
+      alert("Your deposit was successfully added to your bank account! ")
+      again("deposit", "Would you like to do another deposit?");
     }
   },
 
   // withdraw money from the balance of the account
   withdrawal(amount) {
     amount = prompt(`Please enter the amount`);  
-    num = Number(amount);
-    if (!isValidNumber(num)){
-      account.accountError("enter a valid number");
+    if(!isValidInput(amount)) {
+      account.accountError("enter a valid input");
       return;
+    } else {
+      let num = Number(amount);
     }
-    else if (num > this.balance) {
+
+    if (num > this.balance) {
       this.accountError("but don't worry, all you need is code!")
       return;
     }
@@ -114,6 +119,8 @@ const account = {
     }
     else {
       this.balance -= num;
+      alert(`With great power comes great responsibilities Padawan! Trade carefully 💸\nYour balance is now ${this.balance}`)
+      again("withdrawal", "Would you like to do another withdrawal?");
     }
   },
 
